@@ -1,14 +1,15 @@
 import os
-import sys
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def input_choice(prompt, choices, allow_back=False):
+def input_choice(prompt, choices):
     while True:
-        choice = input(prompt).strip()
-        if allow_back and choice.lower() == 'back':
-            return 'back'
+        choice = input(prompt).strip().lower()
         if choice in choices:
             return choice
-        print(f"請輸入有效選項：{choices}")
+        print("輸入錯誤，請重新輸入。")
+
+def wait_enter():
+    input("按 Enter 繼續...")
+
