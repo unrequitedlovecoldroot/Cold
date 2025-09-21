@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include cold/templates *
+recursive-include cold/android/initial_setup/templates *
+recursive-include cold/ios *
+recursive-include cold/admin *
