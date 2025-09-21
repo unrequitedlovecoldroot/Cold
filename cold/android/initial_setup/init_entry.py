@@ -1,43 +1,42 @@
-from cold.utils import clear_screen
+from cold.utils import clear_screen, wait_enter
 from cold.android.initial_setup.basic_setup.basic_setup_menu import basic_setup_menu
 from cold.android.initial_setup.tutorial.tutorial_menu import tutorial_menu
 from cold.android.initial_setup.system_settings.system_settings_menu import system_settings_menu
 from cold.android.initial_setup.health_check.health_check_menu import health_check_menu
+from cold.android.start_button import start_button
 
-flags = {
-    "basic_setup": False,
+# flags 追蹤 2~5 完成狀態
+setup_flags = {
+    "basic": False,
     "tutorial": False,
     "system_settings": False,
     "health_check": False
 }
 
-def initial_setup_android():
+def initial_setup():
     while True:
         clear_screen()
         print("⚙️ 初始設定流程（入口）")
-        for i, key in enumerate(flags.keys(), start=2):
-            status = "✅" if flags[key] else "❌"
-            print(f"{i}. {key} {status}")
-        print("start. ▶️ 開始按鈕 (完成 2~5 後可點)")
-        choice = input("選擇流程 (輸入數字/start/back): ").strip().lower()
-
-        if choice == "2":
-            flags["basic_setup"] = basic_setup_menu()
+        print(f"1. 2️⃣ 基本設定 [{'✅' if setup_flags['basic'] else '❌'}]")
+        print(f"2. 3️⃣ 說明與教學 [{'✅' if setup_flags['tutorial'] else '❌'}]")
+        print(f"3. 4️⃣ 系統需開啟設定 [{'✅' if setup_flags['system_settings'] else '❌'}]")
+        print(f"4. 5️⃣ 初步系統健檢 [{'✅' if setup_flags['health_check'] else '❌'}]")
+        print("5. ▶️ 開始按鈕 (完成 2~5 後顯示)")
+        print("輸入 back 返回")
+        choice = input("選擇操作: ").strip().lower()
+        if choice == "1":
+            setup_flags['basic'] = basic_setup_menu()
+        elif choice == "2":
+            setup_flags['tutorial'] = tutorial_menu()
         elif choice == "3":
-            flags["tutorial"] = tutorial_menu()
+            setup_flags['system_settings'] = system_settings_menu()
         elif choice == "4":
-            flags["system_settings"] = system_settings_menu()
+            setup_flags['health_check'] = health_check_menu()
         elif choice == "5":
-            flags["health_check"] = health_check_menu()
-        elif choice == "start":
-            if all(flags.values()):
-                print("🎉 Cold 初始化完成，進入系統主程式...")
-                from cold.android.user_mode.user_mode_menu import user_mode_menu
-                user_mode_menu()
-                break
+            if all(setup_flags.values()):
+                start_button()
             else:
-                print("請完成所有必須流程才可開始")
+                print("請先完成 2~5 所有項目")
+                wait_enter()
         elif choice == "back":
-            return
-        else:
-            print("無效選項")
+            break
