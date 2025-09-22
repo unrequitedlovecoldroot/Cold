@@ -1,4 +1,5 @@
-from cold.utils.tools import clear_screen, check_leave
+from cold.utils.clear.clear import clear_screen
+from cold.utils.leave.leave import check_leave
 
 
 def main():
