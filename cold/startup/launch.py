@@ -1,5 +1,7 @@
-from utils import clear_screen, input_with_back, Colors
-from android.initial_setup.init_entry import init_entry
+from cold.tools.screen_tools import clear_screen
+from cold.tools.input_tools import input_with_back
+from cold.tools.color_tools import Colors
+from cold.android.initial_setup.init_entry import init_entry
 
 # 模擬 2~5 flag 狀態
 flags = {
@@ -13,10 +15,10 @@ def launch(platform):
     while True:
         clear_screen()
         print(f"🔌 啟動流程 ({platform})")
-        print(f"2️⃣ 基本設定: {Colors.OKGREEN if flags['basic_setup'] else Colors.WARNING}已完成{Colors.ENDC if flags['basic_setup'] else Colors.ENDC}")
-        print(f"3️⃣ 說明與教學: {Colors.OKGREEN if flags['tutorial'] else Colors.WARNING}已完成{Colors.ENDC if flags['tutorial'] else Colors.ENDC}")
-        print(f"4️⃣ 系統需開啟設定: {Colors.OKGREEN if flags['system_settings'] else Colors.WARNING}已完成{Colors.ENDC if flags['system_settings'] else Colors.ENDC}")
-        print(f"5️⃣ 初步系統健檢: {Colors.OKGREEN if flags['health_check'] else Colors.WARNING}已完成{Colors.ENDC if flags['health_check'] else Colors.ENDC}")
+        print(f"2️⃣ 基本設定: {Colors.OKGREEN if flags['basic_setup'] else Colors.WARNING}{'已完成' if flags['basic_setup'] else '未完成'}{Colors.ENDC}")
+        print(f"3️⃣ 說明與教學: {Colors.OKGREEN if flags['tutorial'] else Colors.WARNING}{'已完成' if flags['tutorial'] else '未完成'}{Colors.ENDC}")
+        print(f"4️⃣ 系統需開啟設定: {Colors.OKGREEN if flags['system_settings'] else Colors.WARNING}{'已完成' if flags['system_settings'] else '未完成'}{Colors.ENDC}")
+        print(f"5️⃣ 初步系統健檢: {Colors.OKGREEN if flags['health_check'] else Colors.WARNING}{'已完成' if flags['health_check'] else '未完成'}{Colors.ENDC}")
         print("6️⃣ ▶️ 開始按鈕 (完成 2~5 後才可啟動)")
         print("輸入 2~5 可進入對應選單，或輸入 back 返回")
         choice = input_with_back("選擇操作: ")
